@@ -5,6 +5,7 @@
  *  @author woodtluk
  */
 package autoFocusator;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URL;
 
 /** This class shows a table with the tasks in it.
  *  It is the main class with the GUI and event handlers.
@@ -80,22 +82,22 @@ public class AutoFocusator extends JPanel
 		
 		toolBar = new JToolBar("Autofocusator - Toolbar");
 		
-		JButton buttonAddTask = new JButton("Add a Task", new ImageIcon("res/list-add.png"));
+		JButton buttonAddTask = new JButton("Add a Task", new ImageIcon(loadPics("res/list-add.png")));
 		buttonAddTask.setActionCommand("addTask");
 		buttonAddTask.addActionListener(this);
 		toolBar.add(buttonAddTask);
 		
-		JButton buttonDeleteTask = new JButton("Delete a Task", new ImageIcon("res/list-remove.png"));
+		JButton buttonDeleteTask = new JButton("Delete a Task", new ImageIcon(loadPics("res/list-remove.png")));
 		buttonDeleteTask.setActionCommand("deleteTask");
 		buttonDeleteTask.addActionListener(this);
 		toolBar.add(buttonDeleteTask);
 		
-		JButton buttonSave = new JButton("Save", new ImageIcon("res/document-save-as.png"));
+		JButton buttonSave = new JButton("Save", new ImageIcon(loadPics("res/document-save-as.png")));
 		buttonSave.setActionCommand("save");
 		buttonSave.addActionListener(this);
 		toolBar.add(buttonSave);
 		
-		JButton buttonOpen = new JButton("open", new ImageIcon("res/document-open.png"));
+		JButton buttonOpen = new JButton("open", new ImageIcon(loadPics("res/document-open.png")));
 		buttonOpen.setActionCommand("open");
 		buttonOpen.addActionListener(this);
 		toolBar.add(buttonOpen);
@@ -141,6 +143,24 @@ public class AutoFocusator extends JPanel
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 	}
+	
+	private Image loadPics(String path)
+	  {
+	    Image source = null;
+
+	    URL pic_url = getClass().getClassLoader().getResource(path);
+
+	    try
+	    {
+	      source = ImageIO.read(pic_url);
+	    }
+	    catch (IOException e)
+	    {
+	      e.printStackTrace();
+	    }
+	    return source;
+	  } 
+	
 		
 		private static void createAndShowGUI() {
 			JFrame frame = new JFrame("Autofocusator");
